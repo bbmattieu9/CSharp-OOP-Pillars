@@ -11,13 +11,8 @@ public class Rectangle
         Width = width;
         }
     
-    public double CalculateArea()
-    {
-        return Height * Width;
-    }
+    public double CalculateArea() => Height * Width;
+  
 
-    public double CalculateCircumference()
-    {
-        return (Height + Width) * 2;
-    }
+    public double CalculateCircumference() => (Height + Width) * 2;
 }
