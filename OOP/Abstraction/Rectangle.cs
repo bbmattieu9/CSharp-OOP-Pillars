@@ -2,17 +2,29 @@
 
 public class Rectangle
 {
-    public double Height { get; set; }
-    public double Width { get; set; }
+    public  int Height { get; set; }
+    public int Width { get; set; }
     
-    public Rectangle(double height, double width)
+    public Rectangle(int height, int width)
         {
-        Height = height;
-        Width = width;
+        Height = GetLengthOrDefault(height, nameof(Height));
+        Width = GetLengthOrDefault(width, nameof(Width));
         }
+
+    private int GetLengthOrDefault(int length, string name)
+    {
+        const int defaultValueIfNonPositive = 1;
+        if (length <= 0)
+        {
+            Console.WriteLine($"{name} must be  a postive number.");
+            return  defaultValueIfNonPositive;
+        }
+
+        return length;
+    }
     
-    public double CalculateArea() => Height * Width;
+    public int CalculateArea() => Height * Width;
   
 
-    public double CalculateCircumference() => (Height + Width) * 2;
+    public int CalculateCircumference() => (Height + Width) * 2;
 }
