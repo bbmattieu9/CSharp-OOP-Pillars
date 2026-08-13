@@ -2,42 +2,33 @@
 
 public class Names
 {
-    private List<string> _names = new List<string>();
+    public List<string> All { get; } = new List<string>();
+    private readonly NamesValidator _namesValidator = new NamesValidator();
 
-    private bool IsValidName(string name)
+    public void AddNames(List<string> stringsFromFile)
     {
-        return name.Length >= 2 &&
-               name.Length < 25 &&
-               char.IsUpper(name[0]) &&
-               name.All(char.IsLetter);
-    }
-    
-    public void AddName(string name)
-    {
-        if(IsValidName(name))
-        {
-            _names.Add(name);
-        }
-    }
-
-    public void ReadFromTextFile()
-    {
-        var fileContents = File.ReadAllText(BuildFilePath());
-        var namesFromFile = fileContents.Split(Environment.NewLine).ToList();
-        foreach (var name in namesFromFile)
+        foreach (var name in stringsFromFile)
         {
             AddName(name);
         }
     }
     
-    public void WriteToTextFile() => 
-        File.WriteAllText(BuildFilePath(), Format());
-
-    public string BuildFilePath()
+    public void AddName(string name)
     {
-        return "names.txt";
+        // var validator = new NamesValidator();
+        // then do
+        // validator.IsValidName(name)
+        // or use short form below
+        // new NamesValidator().IsValidName(name)
+        // but - it means a new Object of NamesValidator will be created
+        // each time the AddName method is called
+        
+        // We can create such an Object once and simply store it as
+        // a private filed in the names class
+        if(_namesValidator.IsValid(name))
+        {
+            All.Add(name);
+        }
     }
     
-    public string Format() =>
-        string.Join(Environment.NewLine, _names);
 }
