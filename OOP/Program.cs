@@ -1,6 +1,6 @@
-﻿
-
+﻿using OOP;
 using OOP.Abstraction;
+using OOP.DiceGame;
 using OOP.MethodOverloading;
 using OOP.SingleRespPrinciple;
 
@@ -12,7 +12,7 @@ public class Program
 
         // var dogOne = new Dog("Lucky", "german shepherd", 40);
         // Console.WriteLine(dogOne.Describe());
-        
+
         // var dogTwo = new Dog("Tina", 25);
         // Console.WriteLine(dogTwo.Describe());
 
@@ -33,30 +33,38 @@ public class Program
         // Console.WriteLine(triAngle.CalculateArea());
 
 
-        Console.WriteLine("==== Single Responsibility Principle ===");
-        
-        var names = new Names();
-        var path = new NamesFilePathBuilder().BuildFilePath();
-        var stringsTextualRepository = new StringTextualRepository();
-        if (File.Exists(path))
-        {
-            Console.WriteLine("Names files already exists. Loading names...");
-            var stringsFromFile = stringsTextualRepository.Read(path);
-            names.AddNames(stringsFromFile);
-        }
-        else
-        {
-            Console.WriteLine("Names files do not exist. Creating names...");
-            // Create an imaginary list of names
-            names.AddName("Brandy");
-            names.AddName("not a valid name");
-            names.AddName("Jackson");
-            names.AddName("123 definitely not a valid name");
-            
-            Console.WriteLine("Names saved and file successfully loaded.");
-            stringsTextualRepository.Write(path, names.All);
-        }
-        
-        Console.WriteLine(new NamesFormatter().Format((names.All)));
+        // Console.WriteLine("==== Single Responsibility Principle ===");
+
+        // var names = new Names();
+        // var path = new NamesFilePathBuilder().BuildFilePath();
+        // var stringsTextualRepository = new StringTextualRepository();
+        // if (File.Exists(path))
+        // {
+        //     Console.WriteLine("Names files already exists. Loading names...");
+        //     var stringsFromFile = stringsTextualRepository.Read(path);
+        //     names.AddNames(stringsFromFile);
+        // }
+        // else
+        // {
+        //     Console.WriteLine("Names files do not exist. Creating names...");
+        //     // Create an imaginary list of names
+        //     names.AddName("Brandy");
+        //     names.AddName("not a valid name");
+        //     names.AddName("Jackson");
+        //     names.AddName("123 definitely not a valid name");
+        //     
+        //     Console.WriteLine("Names saved and file successfully loaded.");
+        //     stringsTextualRepository.Write(path, names.All);
+        // }
+        //
+        // Console.WriteLine(new NamesFormatter().Format((names.All)));
+
+
+        var random = new Random();
+        var dice = new Dice(random);
+        var guessingGame = new GuessingGame(dice);
+
+        GameResult gameResult = guessingGame.Play();
+        guessingGame.PrintGameResult(gameResult);
     }
 }
