@@ -3,6 +3,7 @@ using OOP.Abstraction;
 using OOP.DiceGame;
 using OOP.MethodOverloading;
 using OOP.SingleRespPrinciple;
+using OOP.VirtualMethod;
 
 public class Program
 {
@@ -59,12 +60,44 @@ public class Program
         //
         // Console.WriteLine(new NamesFormatter().Format((names.All)));
 
+        // Console.WriteLine("==== Guess Game Program ===");
+        //     var random = new Random();
+        //     var dice = new Dice(random);
+        //     var guessingGame = new GuessingGame(dice);
+        //
+        //     GameResult gameResult = guessingGame.Play();
+        //     guessingGame.PrintGameResult(gameResult);
 
-        var random = new Random();
-        var dice = new Dice(random);
-        var guessingGame = new GuessingGame(dice);
+        
+        var numbers = new List<int> { 1, 4, 6, -1, 12, 44, -8, -19 };
+        bool shallAddPositiveOnly = true;
 
-        GameResult gameResult = guessingGame.Play();
-        guessingGame.PrintGameResult(gameResult);
+        int sum = shallAddPositiveOnly ? 
+            new PositiveNumbersSumCalculator().Calculate(numbers) : 
+            new NumbersSumCalculator().Calculate(numbers);
+        Console.WriteLine("Sum is: " + sum);
+        
+        
+        var sumOfAnimalLegs = GetCountOfAnimalsLegs();
+        int totalNumOfLegs = sumOfAnimalLegs.Sum();
+        Console.WriteLine("Sum of animal legs is: " + totalNumOfLegs);
+    }
+
+    private static List<int> GetCountOfAnimalsLegs()
+    {
+        var animals =  new List<Animal>
+        {
+            new Lion(),
+            new Tiger(),
+            new  Duck(),
+            new Spider()
+        };
+            
+        var result = new List<int>();
+        foreach (var animal in animals)
+        {
+            result.Add(animal.NumberOfLegs);
+        }
+        return result;
     }
 }
